@@ -1,0 +1,873 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080817">
+<title>EcoDiwali — Same Joy. No Pollution.</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:#080817;
+  color:#fff;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-bottom:105px;
+}
+
+/* HEADER: LOGO AND HIGH-VISIBILITY SLOGAN */
+header{
+  text-align:center;
+  padding:27px 14px 22px;
+  background:linear-gradient(180deg,#10132a,#080817);
+  border-bottom:1px solid #39314b;
+}
+h1{
+  margin:0;
+  font-size:clamp(36px,8vw,58px);
+  line-height:1.15;
+  letter-spacing:-1.8px;
+  font-weight:900;
+  background:linear-gradient(90deg,#ffe49b,#ffb347,#ff75b5);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.tagline{
+  display:block;
+  width:fit-content;
+  max-width:100%;
+  margin:15px auto 0;
+  padding:10px 18px;
+  color:#a6ffdc;
+  background:#112c2a;
+  border:2px solid #5df5bf;
+  border-radius:30px;
+  font-size:clamp(13px,3.4vw,19px);
+  font-weight:950;
+  letter-spacing:2px;
+  line-height:1.5;
+  text-align:center;
+  text-shadow:0 0 12px #5df5bf55;
+  box-shadow:0 0 22px #43f3b522;
+}
+.header-description{
+  margin:12px 0 0;
+  color:#e1dff4;
+  font-size:14px;
+  line-height:1.6;
+}
+
+main{
+  width:min(1100px,100%);
+  margin:auto;
+  padding:16px 15px 35px;
+}
+
+/* FIREWORKS STAGE */
+.stage{
+  position:relative;
+  height:clamp(350px,58vh,570px);
+  background:
+    radial-gradient(ellipse at 50% 100%,#35205b,transparent 65%),
+    linear-gradient(180deg,#090d23,#11132d);
+  border:1px solid #51416b;
+  border-radius:25px;
+  overflow:hidden;
+  box-shadow:0 0 35px #9a65ff12;
+}
+#sky{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+.stage-label{
+  position:absolute;
+  top:15px;
+  left:15px;
+  color:#fff0bc;
+  background:#101226c9;
+  border:1px solid #65567a;
+  padding:8px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+.hero-message{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:95%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  pointer-events:none;
+  text-shadow:0 3px 20px #000;
+}
+.hero-message strong{
+  display:block;
+  font-size:clamp(27px,6vw,49px);
+  font-weight:950;
+  background:linear-gradient(90deg,#fff0bd,#ffbb66,#ff9ed3);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero-message span{
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+  color:#e4e7ff;
+}
+
+/* CONTROL BUTTONS */
+.controls{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin:16px 0;
+}
+button{
+  border:1px solid #484367;
+  background:#19182f;
+  color:white;
+  border-radius:14px;
+  padding:12px 15px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+}
+button:hover{border-color:#ffd166}
+button:focus-visible{
+  outline:3px solid #5df5bf;
+  outline-offset:3px;
+}
+button.primary{
+  background:linear-gradient(110deg,#ffe29a,#ffb347);
+  color:#201126;
+  border:0;
+}
+button.active{
+  border:2px solid #ffd166;
+  background:#302444;
+}
+.section-title{
+  margin:28px 0 12px;
+  font-size:21px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:11px;
+}
+.firework{
+  min-height:130px;
+  text-align:left;
+  padding:15px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#191b34,#111426);
+}
+.firework .emoji{
+  display:block;
+  font-size:30px;
+  margin-bottom:7px;
+}
+.firework strong{font-size:16px}
+.firework small{
+  display:block;
+  color:#d0cde4;
+  font-size:12px;
+  font-weight:400;
+  line-height:1.5;
+  margin-top:5px;
+}
+.status{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  color:#d0cde4;
+  font-size:13px;
+  margin:15px 2px;
+}
+.status strong{color:#fff}
+.note{
+  margin-top:24px;
+  padding:17px;
+  border:1px solid #3b4260;
+  background:#111529;
+  border-radius:18px;
+  color:#e0e2f2;
+  font-size:14px;
+  line-height:1.8;
+}
+.note strong{
+  color:#a6ffdc;
+  font-size:17px;
+}
+
+/* FIXED BOTTOM LAUNCH BAR */
+.bottom-bar{
+  position:fixed;
+  z-index:20;
+  bottom:0;
+  left:0;
+  right:0;
+  display:flex;
+  gap:9px;
+  align-items:center;
+  padding:12px 14px;
+  padding-bottom:max(12px,env(safe-area-inset-bottom));
+  background:#101225f5;
+  border-top:1px solid #51416b;
+  backdrop-filter:blur(15px);
+}
+.launch-button{
+  flex:1;
+  min-width:0;
+  padding:17px 10px;
+  border:0;
+  border-radius:17px;
+  background:linear-gradient(110deg,#ffe49b,#ffb347);
+  color:#211027;
+  font-weight:900;
+  font-size:15px;
+}
+.icon-button{
+  width:51px;
+  min-width:51px;
+  height:53px;
+  padding:8px;
+  border-radius:15px;
+  font-size:21px;
+}
+
+/* CLEARLY VISIBLE FOOTER */
+footer{
+  display:block;
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:35px 15px 40px;
+  margin-top:15px;
+  background:linear-gradient(180deg,#111329,#19112b);
+  border-top:2px solid #5b4776;
+}
+.footer-heading{
+  margin:0 0 17px;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+.credit{
+  display:block;
+  width:fit-content;
+  max-width:100%;
+  margin:0 auto;
+  padding:15px 20px;
+  border:2px solid #ffd166;
+  border-radius:18px;
+  background:#30213c;
+  color:#ffe6a0;
+  font-size:clamp(15px,4vw,20px);
+  line-height:1.5;
+  font-weight:950;
+  letter-spacing:.3px;
+  text-align:center;
+  text-shadow:0 0 12px #ffd16640;
+  box-shadow:0 0 25px #ffd16622;
+}
+.footer-subtitle{
+  color:#e0dced;
+  font-size:13px;
+  line-height:1.8;
+  margin-top:17px;
+}
+.eco{
+  color:#a6ffdc;
+  font-size:12px;
+  font-weight:700;
+  margin-top:12px;
+}
+
+@media(min-width:650px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:380px){
+  header{padding:23px 9px 19px}
+  .tagline{letter-spacing:1px;padding:9px 11px}
+  main{padding-left:10px;padding-right:10px}
+  .grid{gap:8px}
+  .firework{padding:12px;min-height:125px}
+  .firework strong{font-size:14px}
+  .bottom-bar{gap:6px;padding-left:8px;padding-right:8px}
+  .icon-button{width:44px;min-width:44px}
+  .launch-button{font-size:13px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌿 EcoDiwali ✨</h1>
+
+  <!-- VISIBLE SLOGAN DIRECTLY UNDER THE LOGO -->
+  <div class="tagline">SAME JOY. NO POLLUTION.</div>
+
+  <p class="header-description">
+    Celebrate the lights. Enjoy the magic. Keep the planet happy.
+  </p>
+</header>
+
+<main>
+
+  <section class="stage">
+    <canvas id="sky"></canvas>
+    <div class="stage-label">✦ YOUR VIRTUAL CELEBRATION</div>
+
+    <div class="hero-message">
+      <strong>Light Up The Sky!</strong>
+      <span>Beautiful fireworks. A happier planet. 🌍</span>
+    </div>
+  </section>
+
+  <div class="controls">
+    <button id="soundBtn" class="active">🔊 Sound On</button>
+    <button id="autoBtn">🎆 Auto Show</button>
+    <button id="reduceBtn">✨ Reduce Motion</button>
+    <button id="clearBtn">🧹 Clear Sky</button>
+    <button id="fullBtn">⛶ Fullscreen</button>
+  </div>
+
+  <div class="status">
+    <span>Effects launched: <strong id="count">0</strong></span>
+    <span id="message" aria-live="polite">Choose a firework to begin</span>
+  </div>
+
+  <h2 class="section-title">🎇 Choose Your Firework</h2>
+
+  <div class="grid" id="fireworkGrid">
+    <button class="firework active" data-type="rocket">
+      <span class="emoji">🚀</span>
+      <strong>Sky Rocket</strong>
+      <small>Three colourful sky launches</small>
+    </button>
+
+    <button class="firework" data-type="anar">
+      <span class="emoji">🌋</span>
+      <strong>Anar Fountain</strong>
+      <small>Three golden spark fountains</small>
+    </button>
+
+    <button class="firework" data-type="500wala">
+      <span class="emoji">🧨</span>
+      <strong>500 Wala</strong>
+      <small>100 animated flashes and 100 sound effects</small>
+    </button>
+
+    <button class="firework" data-type="chakra">
+      <span class="emoji">🌀</span>
+      <strong>Chakra</strong>
+      <small>Three spinning spark bursts</small>
+    </button>
+
+    <button class="firework" data-type="willow">
+      <span class="emoji">🌟</span>
+      <strong>Golden Willow</strong>
+      <small>Three golden showers</small>
+    </button>
+
+    <button class="firework" data-type="peony">
+      <span class="emoji">💥</span>
+      <strong>Peony Burst</strong>
+      <small>Three colourful bursts</small>
+    </button>
+
+    <button class="firework" data-type="comet">
+      <span class="emoji">☄️</span>
+      <strong>Magic Comet</strong>
+      <small>Three glowing trails</small>
+    </button>
+
+    <button class="firework" data-type="ring">
+      <span class="emoji">⭕</span>
+      <strong>Magic Ring</strong>
+      <small>Three circular bursts</small>
+    </button>
+
+    <button class="firework" data-type="finale">
+      <span class="emoji">🎆</span>
+      <strong>Grand Finale</strong>
+      <small>Three spectacular giant bursts</small>
+    </button>
+  </div>
+
+  <div class="note">
+    <strong>🌱 A Greener Celebration</strong><br>
+    Enjoy colourful virtual fireworks and sound effects without physical
+    firecrackers, smoke, or litter. Celebrate the festival while caring for
+    the planet.
+  </div>
+
+</main>
+
+<!-- VISIBLE FOOTER CREDIT -->
+<footer>
+  <p class="footer-heading">A PROJECT FOR A GREENER TOMORROW</p>
+
+  <div class="credit">
+    ✨ Built by AICTE lab members ✨
+  </div>
+
+  <div class="footer-subtitle">
+    A celebration of creativity, innovation and sustainability
+  </div>
+
+  <div class="eco">
+    EcoDiwali · SAME JOY. NO POLLUTION. 🌍
+  </div>
+</footer>
+
+<!-- BOTTOM CONTROLS -->
+<div class="bottom-bar">
+  <button class="launch-button" id="launchBtn">
+    ✨ Launch Sky Rocket
+  </button>
+  <button class="icon-button" id="autoQuickBtn" title="Auto Show"
+          aria-label="Auto Show">🎆</button>
+  <button class="icon-button" id="soundQuickBtn" title="Sound On"
+          aria-label="Toggle sound">🔊</button>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+const canvas = document.getElementById("sky");
+const ctx = canvas.getContext("2d");
+
+const countEl = document.getElementById("count");
+const messageEl = document.getElementById("message");
+const launchBtn = document.getElementById("launchBtn");
+
+const soundBtn = document.getElementById("soundBtn");
+const soundQuickBtn = document.getElementById("soundQuickBtn");
+const autoBtn = document.getElementById("autoBtn");
+const autoQuickBtn = document.getElementById("autoQuickBtn");
+const reduceBtn = document.getElementById("reduceBtn");
+
+let W=0,H=0;
+let particles=[];
+let rings=[];
+let crackers=[];
+let rockets=[];
+let total=0;
+let soundOn=true;
+let autoShow=false;
+let reduceMotion=false;
+let audio=null;
+let autoTimer=null;
+let selected="rocket";
+let lastFrame=0;
+
+const colors=[
+  "#ffd166","#ff4d9d","#71e5ff",
+  "#b69cff","#8affc1","#ff874f"
+];
+
+const names={
+  rocket:"Sky Rocket",
+  anar:"Anar Fountain",
+  "500wala":"500 Wala",
+  chakra:"Chakra",
+  willow:"Golden Willow",
+  peony:"Peony Burst",
+  comet:"Magic Comet",
+  ring:"Magic Ring",
+  finale:"Grand Finale"
+};
+
+function resize(){
+  const r=canvas.getBoundingClientRect();
+  const d=Math.min(window.devicePixelRatio||1,2);
+  W=r.width;
+  H=r.height;
+  canvas.width=Math.round(W*d);
+  canvas.height=Math.round(H*d);
+  ctx.setTransform(d,0,0,d,0,0);
+}
+window.addEventListener("resize",resize);
+resize();
+
+function getAudio(){
+  if(!soundOn)return null;
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC)return null;
+  if(!audio)audio=new AC();
+  if(audio.state==="suspended")audio.resume();
+  return audio;
+}
+
+function popAt(time,frequency,volume,duration,type="triangle"){
+  const ac=getAudio();
+  if(!ac)return;
+
+  const osc=ac.createOscillator();
+  const gain=ac.createGain();
+
+  osc.type=type;
+  osc.frequency.setValueAtTime(frequency,time);
+  osc.frequency.exponentialRampToValueAtTime(
+    Math.max(80,frequency*.25),time+duration
+  );
+
+  gain.gain.setValueAtTime(.0001,time);
+  gain.gain.exponentialRampToValueAtTime(volume,time+.005);
+  gain.gain.exponentialRampToValueAtTime(.0001,time+duration);
+
+  osc.connect(gain);
+  gain.connect(ac.destination);
+  osc.start(time);
+  osc.stop(time+duration+.01);
+}
+
+function play500WalaSounds(){
+  if(!soundOn)return;
+  const ac=getAudio();
+  if(!ac)return;
+
+  const start=ac.currentTime+.06;
+
+  for(let i=0;i<100;i++){
+    const time=start+i*.08;
+    popAt(time,650+Math.random()*1500,.20,.045,
+      i%2===0?"triangle":"square");
+  }
+}
+
+function playRegularSound(type){
+  if(!soundOn)return;
+  const ac=getAudio();
+  if(!ac)return;
+
+  const base=type==="rocket"?420:
+    type==="anar"?300:
+    type==="chakra"?500:700;
+
+  const now=ac.currentTime+.02;
+
+  for(let i=0;i<3;i++){
+    popAt(now+i*.14,base+Math.random()*500,.13,.08);
+  }
+}
+
+function addBurst(x,y,type){
+  const amount=reduceMotion?25:
+    type==="finale"?160:90;
+
+  const palette=colors;
+
+  rings.push({
+    x,y,age:0,
+    color:palette[Math.floor(Math.random()*palette.length)],
+    type
+  });
+
+  for(let i=0;i<amount;i++){
+    const angle=Math.random()*Math.PI*2;
+    let speed=1.2+Math.random()*(type==="finale"?6:4);
+
+    if(type==="ring")speed=3+Math.random()*.3;
+
+    particles.push({
+      x,y,
+      vx:Math.cos(angle)*speed,
+      vy:Math.sin(angle)*speed,
+      life:45+Math.random()*45,
+      maxLife:90,
+      color:palette[Math.floor(Math.random()*palette.length)],
+      size:1+Math.random()*2.5,
+      gravity:type==="willow"?.06:.025+Math.random()*.035
+    });
+  }
+}
+
+function launchRocket(x,y,type){
+  rockets.push({
+    x:x,
+    y:H+10,
+    tx:x,
+    ty:y,
+    speed:4+Math.random()*2,
+    type,
+    trail:[]
+  });
+}
+
+function launch(type){
+  getAudio();
+
+  if(type==="500wala"){
+    launch500();
+    return;
+  }
+
+  if(type==="rocket"||type==="comet"){
+    for(let i=0;i<3;i++){
+      const x=W*(.15+Math.random()*.7);
+      const y=H*(.2+Math.random()*.35);
+      launchRocket(x,y,type);
+    }
+  }else if(type==="anar"){
+    for(let i=0;i<3;i++){
+      addBurst(W*(.2+i*.3),H*.78,type);
+    }
+  }else if(type==="finale"){
+    for(let i=0;i<7;i++){
+      addBurst(W*(.1+Math.random()*.8),
+        H*(.18+Math.random()*.45),type);
+    }
+  }else{
+    for(let i=0;i<3;i++){
+      addBurst(W*(.17+Math.random()*.66),
+        H*(.22+Math.random()*.43),type);
+    }
+  }
+
+  total+=3;
+  countEl.textContent=total;
+  messageEl.textContent=names[type]+" launched!";
+  playRegularSound(type);
+}
+
+function launch500(){
+  crackers=[];
+
+  for(let i=0;i<100;i++){
+    const t=i/99;
+    crackers.push({
+      x:W*.06+W*.88*t,
+      y:H*.53+Math.sin(t*Math.PI*2)*H*.08,
+      delay:i*3,
+      age:0,
+      phase:Math.random()*Math.PI*2
+    });
+  }
+
+  total+=100;
+  countEl.textContent=total;
+  messageEl.textContent="500 Wala: 100 flashes and 100 sound effects!";
+  play500WalaSounds();
+}
+
+function drawCrackers(){
+  if(!crackers.length)return;
+
+  crackers.forEach(c=>{
+    c.age++;
+    const active=c.age>=c.delay;
+    const flash=active&&(Math.floor((c.age-c.delay)/3)%2===0);
+
+    ctx.save();
+    ctx.translate(c.x,c.y);
+    ctx.rotate(Math.sin(c.phase+c.age*.025)*.05);
+    ctx.fillStyle=flash?"#fff0a8":"#f34c5b";
+    ctx.shadowBlur=flash?18:5;
+    ctx.shadowColor=flash?"#ffd166":"#ff4d65";
+    ctx.fillRect(-3,-7,6,14);
+
+    ctx.fillStyle="#ffd166";
+    ctx.fillRect(-1,-10,2,4);
+
+    if(flash){
+      ctx.strokeStyle="#ffd166";
+      ctx.lineWidth=1.5;
+      for(let k=0;k<4;k++){
+        const a=k*Math.PI/2+c.phase;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a)*5,Math.sin(a)*5);
+        ctx.lineTo(Math.cos(a)*11,Math.sin(a)*11);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  });
+
+  if(crackers.every(c=>c.age>c.delay+35))crackers=[];
+}
+
+function drawStars(time){
+  ctx.save();
+  for(let i=0;i<55;i++){
+    const x=(i*97.3)%Math.max(1,W);
+    const y=(i*47.9)%Math.max(1,H*.72);
+    ctx.globalAlpha=.25+Math.abs(Math.sin(time*.0006+i))*.55;
+    ctx.fillStyle="#fff";
+    ctx.fillRect(x,y,1.3,1.3);
+  }
+  ctx.restore();
+}
+
+function drawRockets(){
+  rockets=rockets.filter(r=>{
+    r.trail.push({x:r.x,y:r.y});
+    if(r.trail.length>12)r.trail.shift();
+
+    r.y-=r.speed;
+
+    ctx.beginPath();
+    r.trail.forEach((p,i)=>{
+      if(i===0)ctx.moveTo(p.x,p.y);
+      else ctx.lineTo(p.x,p.y);
+    });
+
+    ctx.strokeStyle=r.type==="comet"?"#71e5ff":"#ffd166";
+    ctx.lineWidth=2;
+    ctx.shadowBlur=12;
+    ctx.shadowColor=ctx.strokeStyle;
+    ctx.stroke();
+    ctx.shadowBlur=0;
+
+    if(r.y<=r.ty){
+      addBurst(r.tx,r.ty,r.type==="comet"?"peony":"finale");
+      return false;
+    }
+    return true;
+  });
+}
+
+function frame(time){
+  ctx.clearRect(0,0,W,H);
+  drawStars(time);
+  drawRockets();
+
+  particles=particles.filter(p=>p.life>0);
+
+  for(const p of particles){
+    p.x+=p.vx;
+    p.y+=p.vy;
+    p.vy+=p.gravity;
+    p.vx*=.992;
+    p.life--;
+
+    ctx.globalAlpha=Math.max(0,p.life/p.maxLife);
+    ctx.fillStyle=p.color;
+    ctx.shadowBlur=7;
+    ctx.shadowColor=p.color;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  ctx.globalAlpha=1;
+  ctx.shadowBlur=0;
+
+  rings=rings.filter(b=>b.age<35);
+
+  for(const b of rings){
+    b.age++;
+    ctx.globalAlpha=1-b.age/35;
+    ctx.strokeStyle=b.color;
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.arc(b.x,b.y,b.age*(b.type==="finale"?5:3),0,Math.PI*2);
+    ctx.stroke();
+  }
+
+  ctx.globalAlpha=1;
+  drawCrackers();
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+document.getElementById("fireworkGrid").addEventListener("click",e=>{
+  const button=e.target.closest("button[data-type]");
+  if(!button)return;
+
+  selected=button.dataset.type;
+
+  document.querySelectorAll(".firework").forEach(b=>{
+    b.classList.toggle("active",b===button);
+  });
+
+  launchBtn.textContent="✨ Launch "+names[selected];
+  messageEl.textContent=names[selected]+" selected";
+});
+
+launchBtn.addEventListener("click",()=>launch(selected));
+
+function toggleSound(){
+  soundOn=!soundOn;
+  soundBtn.textContent=soundOn?"🔊 Sound On":"🔇 Sound Off";
+  soundQuickBtn.textContent=soundOn?"🔊":"🔇";
+  soundQuickBtn.title=soundOn?"Sound On":"Sound Off";
+  soundBtn.classList.toggle("active",soundOn);
+  soundQuickBtn.classList.toggle("active",soundOn);
+  if(soundOn)getAudio();
+  messageEl.textContent=soundOn?"Sound enabled":"Sound muted";
+}
+soundBtn.addEventListener("click",toggleSound);
+soundQuickBtn.addEventListener("click",toggleSound);
+
+function toggleAuto(){
+  autoShow=!autoShow;
+  autoBtn.classList.toggle("active",autoShow);
+  autoQuickBtn.classList.toggle("active",autoShow);
+  autoBtn.textContent=autoShow?"⏹ Stop Auto Show":"🎆 Auto Show";
+  autoQuickBtn.textContent=autoShow?"⏹":"🎆";
+
+  if(autoShow){
+    const types=["rocket","anar","chakra","willow",
+      "peony","comet","ring","finale"];
+    let index=0;
+    launch(types[index++%types.length]);
+    autoTimer=setInterval(()=>{
+      if(autoShow)launch(types[index++%types.length]);
+    },1100);
+  }else{
+    clearInterval(autoTimer);
+  }
+}
+autoBtn.addEventListener("click",toggleAuto);
+autoQuickBtn.addEventListener("click",toggleAuto);
+
+reduceBtn.addEventListener("click",()=>{
+  reduceMotion=!reduceMotion;
+  reduceBtn.classList.toggle("active",reduceMotion);
+  reduceBtn.textContent=reduceMotion?
+    "✨ Reduced Motion On":"✨ Reduce Motion";
+});
+
+document.getElementById("clearBtn").addEventListener("click",()=>{
+  particles=[];
+  rings=[];
+  crackers=[];
+  rockets=[];
+  messageEl.textContent="Sky cleared — ready for another show!";
+});
+
+document.getElementById("fullBtn").addEventListener("click",async()=>{
+  try{
+    if(!document.fullscreenElement){
+      await document.querySelector(".stage").requestFullscreen();
+    }else{
+      await document.exitFullscreen();
+    }
+  }catch{
+    messageEl.textContent="Fullscreen is unavailable in this browser.";
+  }
+});
+})();
+</script>
+
+</body>
+</html>
